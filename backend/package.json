@@ -1,0 +1,22 @@
+{
+  "name": "x",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./app.js",
+  "bin": "./bin/www.js",
+  "scripts": {
+    "mon": "nodemon ./bin/www.js",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "exceljs": "^4.2.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.7"
+  }
+}
