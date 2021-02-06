@@ -1,0 +1,22 @@
+{
+    "sort": {
+        "sortEnabled": true,
+        "sortOrder": "asc",
+        "sortNamePattern": "\\S+_quantity_(\\d+)_\\S+"
+    },
+    "clip": {
+        "useCliper": true,
+        "clipNamePattern": "(\\S+_quantity)\\S+"
+    },
+    "headers": {
+        "useHeaders": true,
+        "firstRowHeader": false,
+        "useHeadersPattern": true,
+        "headersPattern": "name",
+        "customHeaders": [
+            "sample1",
+            "anotherOne"
+        ]
+    },
+    "outputFileName": "result.csv"
+}

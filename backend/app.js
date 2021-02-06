@@ -12,13 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('./public'));
 
-app.use(function (req, res, next) {
-  req.mainDir = __dirname;
-  req.csvLogicDir = path.join(__dirname, '/csv_logic');
-
-  next();
-});
-
 app.use('/', indexRouter);
 app.use('/test_req', testRouter);
 

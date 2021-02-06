@@ -94,11 +94,11 @@ async function init(mainDir) {
     const filesNamesSet = new Set(filesNamesArr);
 
     let c = 1;
-    for await (let fileName of filesNamesSet) {
+    for (let fileName of filesNamesSet) {
         let allParts = getAllParts(filesNamesArr, fileName);
         let partsValuesArr = [];
 
-        for await (let filePart of allParts) {
+        for (let filePart of allParts) {
             console.log(filePart);
 
             const workbook = new ExcelJS.Workbook();
