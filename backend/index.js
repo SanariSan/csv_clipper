@@ -1,4 +1,2 @@
-require('./settings.js')({ mainDir: __dirname });
+(require('./settings.js')).applyBasicSettings({ mainDir: __dirname });
 require('./bin/www.js')();
-
-

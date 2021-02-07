@@ -1,10 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 
-function applySettings({ mainDir }) {
+function applyBasicSettings({ mainDir }) {
     process.env.mainDir = mainDir;
-    process.env.csvLogicDir = path.join(mainDir, '/csv_logic');
-    process.env.settings = JSON.stringify(require('./settings.json'));
+    process.env.csvLogicDir = path.join(mainDir, '/src/csv_logic');
+    process.env.settings = fs.readFileSync('./settings.json', 'UTF-8');
 }
 
-module.exports = applySettings;
+function modifyEnvValue(key, value) {
+    process.env[key] = value;
+}
+
+module.exports = {
+    applyBasicSettings,
+    modifyEnvValue
+};
