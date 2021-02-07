@@ -1,25 +1,13 @@
-const fs = require('fs');
 const express = require('express');
-const router = express.Router();
+const routes = express.Router();
 
-/* GET home page. */
-router.get('/', async function (req, res, next) {
-  let a = fs.readdirSync('./');
-  let b = fs.readdirSync(__dirname);
+const apiRouter = require('./api');
+routes.use('/api', apiRouter);
 
-  let test = require(req.mainDir + '/test.js');
-  let converter = require(req.csvLogicDir + '/index.js');
-  await converter(req.mainDir);
+const testRouter = require('./test_req');
+routes.use('/test_req', testRouter);
 
-  // res.send(JSON.stringify(converter));
+const fallback = require('./fallback');
+routes.use('/*+', fallback);
 
-  res.json({
-    status: 'OK',
-    dir: 'main',
-    test: test(),
-    a,
-    b
-  });
-});
-
-module.exports = router;
+module.exports = routes;

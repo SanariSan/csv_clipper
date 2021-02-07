@@ -1,9 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
-const path = require('path');
-
-const indexRouter = require('./routes/index');
-const testRouter = require('./routes/test_req');
+const routes = require('./routes');
 
 const app = express();
 
@@ -12,8 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('./public'));
 
-app.use('/', indexRouter);
-app.use('/test_req', testRouter);
+app.use('/', routes);
 
 app.use(function (req, res, next) {
   next(createError(404));
