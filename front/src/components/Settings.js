@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ApiPath from './../ApiPath.js';
+import ApiRequest from './../scripts/ApiRequest.js';
 
 const Settings = (props) => {
     const [settings, setSettings] = useState(null);
@@ -7,11 +8,9 @@ const Settings = (props) => {
 
     useEffect(() => {
         if (mounted) {
-            fetch(ApiPath.UrlSettings)
-                .then(res => res.status === 200 ? res.json() : res.text())
-                .then(res => res.status === 'OK' ? JSON.parse(res.data) : null)
-                .then(res => setTimeout(() => setSettings(res), 700))
-                .catch(e => { throw e })
+            ApiRequest(ApiPath.UrlSettings)
+                .then(res => setTimeout(() => mounted ? setSettings(res) : null, 700))
+                .catch(console.log)
         }
 
         return () => {

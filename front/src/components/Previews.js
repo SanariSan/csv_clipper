@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import ApiPath from './../ApiPath.js';
+import ApiRequest from './../scripts/ApiRequest.js';
+import Preview from './Preview.js';
 
 const Previews = (props) => {
     const [previews, setPreviews] = useState(null);
@@ -7,11 +9,9 @@ const Previews = (props) => {
 
     useEffect(() => {
         if (mounted) {
-            fetch(ApiPath.UrlPreviews)
-                .then(res => res.status === 200 ? res.json() : res.text())
-                .then(res => res.status === 'OK' ? JSON.parse(res.data) : null)
-                .then(res => setTimeout(() => setPreviews(res), 400))
-                .catch(e => { throw e })
+            ApiRequest(ApiPath.UrlPreviews)
+                .then(res => setTimeout(() => mounted ? setPreviews(res) : null, 400))
+                .catch(console.log)
         }
 
         return () => {
@@ -24,7 +24,10 @@ const Previews = (props) => {
             <pre>
                 {
                     previews !== null ?
-                        JSON.stringify(previews, null, '\t') : 'Fetching previews...'
+                        previews.forEach(preview =>
+                            <Preview previewId={preview.previewId} />
+                        )
+                        : 'Fetching previews...'
                 }
             </pre>
         </div>
