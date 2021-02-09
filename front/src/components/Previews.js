@@ -22,11 +22,13 @@ const Previews = (props) => {
     return (
         <div style={{
             display: "flex",
-            width: "75%",
-            height: "100%",
-            overflow: "scroll"
+            width: "40%",
+            height: "500px",
+            overflow: "scroll",
+            margin: "50px"
         }}>
             {
+                // JSON.stringify(previews, null, '\t')
                 previews !== null ?
                     previews.map(preview =>
                         <Preview previewName={preview.fileName} previewId={preview.id} />

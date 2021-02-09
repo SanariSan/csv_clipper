@@ -5,7 +5,7 @@ const settings = require(process.env.apiSettingsDir);
 apiRouter.get('/settings', settings);
 
 const preview = require(process.env.apiPreviewDir);
-apiRouter.get('/preview', preview);
+apiRouter.use('/preview', preview);
 
 const fallback = require(process.env.apiFallbackDir);
 apiRouter.get('/*+', fallback);

@@ -23,16 +23,29 @@ const Preview = ({ previewName, previewId }) => {
     return (
         <div style={{
             border: "2px solid black",
-            margin: "0px 10px"
+            height: "max-content",
+            margin: "0px 10px",
+            padding: "10px"
         }}>
             <b>{previewName}</b>
             <ul style={{
-                listStyleType: "none"
+                listStyleType: "none",
+                padding: "10px"
             }}>
                 {
                     previewContent !== null ?
-                        previewContent.split('\n').map((_, i) => <li key={`${previewId}_${i}`}>{_}</li>)
-                        : 'Fetching preview row...'
+                        previewContent.split('\n').map((_, i) => (
+                            <li style={{
+                                border: "2px solid black",
+                                padding: "10px 20px",
+                                fontSize: "12px",
+                            }}
+                                key={`${previewId}_${i}`}>
+                                {_}
+                            </li>
+                        ))
+                        :
+                        'Fetching preview row...'
                 }
             </ul>
         </div>

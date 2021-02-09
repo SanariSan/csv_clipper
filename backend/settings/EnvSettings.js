@@ -14,6 +14,8 @@ function applyEnvSettings({ mainDir }) {
     process.env.apiDir = path.join(process.env.routesDir, 'api');
     process.env.apiFallbackDir = path.join(process.env.apiDir, 'fallback');
     process.env.apiPreviewDir = path.join(process.env.apiDir, 'preview');
+    process.env.apiPreviewSingleDir = path.join(process.env.apiPreviewDir, 'single');
+    process.env.apiPreviewMultipleDir = path.join(process.env.apiPreviewDir, 'multiple');
     process.env.apiSettingsDir = path.join(process.env.apiDir, 'settings');
 
     process.env.dataDir = path.join(process.env.mainDir, 'data');
