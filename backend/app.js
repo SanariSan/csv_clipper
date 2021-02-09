@@ -1,13 +1,12 @@
 const express = require('express');
 const logger = require('morgan');
-const routes = require('./routes');
+const routes = require(process.env.routesDir);
 
 const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static('./public'));
 
 app.use('/', routes);
 
