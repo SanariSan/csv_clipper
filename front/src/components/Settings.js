@@ -8,7 +8,7 @@ const Settings = (props) => {
 
     useEffect(() => {
         if (mounted) {
-            ApiRequest(ApiPath.UrlSettings)
+            ApiRequest(ApiPath.settingsUrl)
                 .then(res => setTimeout(() => mounted ? setSettings(res) : null, 700))
                 .catch(console.log)
         }

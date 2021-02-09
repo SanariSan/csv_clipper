@@ -9,7 +9,7 @@ const Previews = (props) => {
 
     useEffect(() => {
         if (mounted) {
-            ApiRequest(ApiPath.UrlPreviews)
+            ApiRequest(ApiPath.previewsUrl)
                 .then(res => setTimeout(() => mounted ? setPreviews(res) : null, 400))
                 .catch(console.log)
         }
@@ -20,18 +20,22 @@ const Previews = (props) => {
     }, [mounted]);
 
     return (
-        <div>
-            <pre>
-                {
-                    previews !== null ?
-                        previews.forEach(preview =>
-                            <Preview previewId={preview.previewId} />
-                        )
-                        : 'Fetching previews...'
-                }
-            </pre>
+        <div style={{
+            display: "flex",
+            width: "75%",
+            height: "100%",
+            overflow: "scroll"
+        }}>
+            {
+                previews !== null ?
+                    previews.map(preview =>
+                        <Preview previewName={preview.fileName} previewId={preview.id} />
+                    )
+                    : "Fetching previews..."
+            }
         </div>
     );
 };
 
 export default Previews;
+

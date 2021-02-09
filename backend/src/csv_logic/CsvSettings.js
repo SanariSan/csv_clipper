@@ -15,7 +15,7 @@ function formatFile(fileName) {
     return formatted;
 }
 
-class CsvSettings {
+class CsvControl {
     constructor() {
         this.csvSettings = JSON.parse(fs.readFileSync(path.join(process.env.csvLogicDir, 'CsvSettings.json'), 'UTF-8'));//!!!!! route
         this.files = fs.readdirSync(path.join(process.env.mainDir, 'data', 'files')).map(formatFile);
@@ -43,4 +43,4 @@ class CsvSettings {
     }
 }
 
-module.exports = CsvSettings;
+module.exports = CsvControl;
