@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import ApiPath from './../ApiPath.js';
 import ApiRequest from './../scripts/ApiRequest.js';
+import CustomForm from './CustomForm.js';
+
 
 const Settings = (props) => {
     const [settings, setSettings] = useState(null);
@@ -26,6 +28,7 @@ const Settings = (props) => {
                         JSON.stringify(settings, null, '\t') : 'Fetching settings...'
                 }
             </pre>
+            <CustomForm />
         </div>
     );
 };

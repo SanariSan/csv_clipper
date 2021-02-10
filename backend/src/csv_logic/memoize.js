@@ -11,7 +11,7 @@ function memoize(fn) {
 
         if (action === 'del') {
             if (val) {
-                console.log('From cache DEL' + key);
+                console.log('From cache DEL ' + key);
                 delete cache[key];
                 return;
             }
@@ -22,9 +22,17 @@ function memoize(fn) {
             return val;
         }
 
-        const res = fn(path.join(process.env.mainDir, 'data', 'files', fileObj.fileName), 'UTF-8');
-        cache[key] = res;
+        let res;
+        try {
+            res = fn(path.join(process.env.mainDir, 'data', 'files', fileObj.fileName), 'UTF-8');
+        }
+        catch (e) {
+            throw {
+                fileName: fileObj.fileName
+            };
+        }
 
+        cache[key] = res;
         console.log('From fs ' + key);
 
         return res;

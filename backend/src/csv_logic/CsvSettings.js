@@ -10,6 +10,7 @@ function formatFile(fileName) {
         fileName,
         id: nanoid()
     }
+
     memoReadFile(formatted);
 
     return formatted;
@@ -18,7 +19,7 @@ function formatFile(fileName) {
 class CsvControl {
     constructor() {
         this.csvSettings = JSON.parse(fs.readFileSync(path.join(process.env.csvLogicDir, 'CsvSettings.json'), 'UTF-8'));//!!!!! route
-        this.files = fs.readdirSync(path.join(process.env.mainDir, 'data', 'files')).map(formatFile);
+        this.files = [];//fs.readdirSync(path.join(process.env.mainDir, 'data', 'files')).map(formatFile);
     }
 
     getFile(id) {
@@ -29,7 +30,15 @@ class CsvControl {
         let match = this.files.find(_ => _.fileName === fileName);
 
         if (!match) {
-            this.files.push(formatFile(fileName));
+
+            try {
+                let formatted = formatFile(fileName);
+                this.files.push(formatted);
+            }
+            catch (e) {
+                console.warn('Couldn\'t read file ' + e.fileName);
+            }
+
         }
     }
 
