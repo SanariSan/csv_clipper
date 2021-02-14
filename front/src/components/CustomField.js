@@ -1,42 +1,22 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Select from './formFields/Select';
+import Radio from './formFields/Radio';
+import SettingsContext from './SettingsContext';
 
-const CustomField = ({ fieldName, showName, fieldType, fieldValues }) => {
-    return (
-        <div>
-            {
-                () => {
-                    if (fieldType === "select") {
-                        return (
-                            <div>
-                                <label htmlFor={fieldName}>{showName}</label>
-                                <Field name={fieldName} as={fieldType} >
-                                    {
-                                        () => {
-                                            if (fieldValues && fieldValues.length !== 0) {
-                                                return fieldValues.map(_ => <option value={_}>{_}</option>)
-                                            }
-                                        }
-                                    }
-                                </Field>
-                            </div>)
-                    }
-                    else if (fieldType === "radio") {
-                        if (fieldValues && fieldValues.length !== 0) {
-                            return fieldValues.map(_ => (
-                                <label>
-                                    {showName}
-                                    <Field name={fieldName} type={fieldType} value={_} />
-                                </label>
-                            ))
-                        }
-                    }
-                    else if (fieldType === "textarea") {
-                        return <Field name={fieldName} as={fieldType} />
-                    }
-                }
-            }
-        </div>
-    )
+
+const CustomField = (props) => {
+    const { sort, clip, headers } = props.settings;
+    const { fieldType, fieldName, showName, fieldValues } = props;
+
+    if (fieldType === "select") {
+        return <Select fieldName={fieldName} showName={showName} fieldValues={fieldValues} />
+    }
+    else if (fieldType === "radio") {
+        return <Radio fieldName={fieldName} showName={showName} fieldValues={fieldValues} />
+    }
+    // else if (fieldType === "textarea") {
+    //     return <input name={fieldName} type="textarea" value={fieldValues[0]} />
+    // }
+
 }
 
 export default CustomField;

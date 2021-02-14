@@ -1,22 +1,76 @@
 {
-    "sort": {
-        "sortEnabled": true,
-        "sortOrder": "asc",
-        "sortNamePattern": "\\S+_quantity_(\\d+)_\\S+"
-    },
-    "clip": {
-        "useCliper": true,
-        "clipNamePattern": "(\\S+_quantity)\\S+"
-    },
-    "headers": {
-        "useHeaders": true,
-        "firstRowHeader": false,
-        "useHeadersPattern": true,
-        "headersPattern": "name",
-        "customHeaders": [
-            "sample1",
-            "anotherOne"
-        ]
-    },
-    "outputFileName": "result.csv"
+	"sort": {
+		"sortEnabled": [
+			{
+				"value": true,
+				"active": false
+			},
+			{
+				"value": false,
+				"active": true
+			}
+		],
+		"sortOrder": [
+			{
+				"value": "asc",
+				"active": true
+			},
+			{
+				"value": "desc",
+				"active": false
+			}
+		],
+		"sortNamePattern": "\\S+_quantity_(\\d+)_\\S+"
+	},
+	"clip": {
+		"useCliper": [
+			{
+				"value": true,
+				"active": true
+			},
+			{
+				"value": false,
+				"active": false
+			}
+		],
+		"clipNamePattern": "(\\S+_quantity)\\S+"
+	},
+	"headers": {
+		"useHeaders": [
+			{
+				"value": true,
+				"active": true
+			},
+			{
+				"value": false,
+				"active": false
+			}
+		],
+		"firstRowHeader": [
+			{
+				"value": true,
+				"active": false
+			},
+			{
+				"value": false,
+				"active": true
+			}
+		],
+		"useHeadersPattern": [
+			{
+				"value": true,
+				"active": true
+			},
+			{
+				"value": false,
+				"active": false
+			}
+		],
+		"headersPattern": "name",
+		"customHeaders": [
+			"sample1",
+			"anotherOne"
+		]
+	},
+	"outputFileName": "result.csv"
 }

@@ -1,34 +1,28 @@
 const fs = require('fs');
-
-function compareLength(dataClipped, csvOutput) {
-    console.log('TXT ', dataClipped.length);
-    console.log('CSV ', csvOutput.length);
-}
+const path = require('path');
 
 function compareData(dataClipped, csvOutput) {
     let matchedAmount = 0;
 
-    dataClipped.forEach(el => {
+    for (let el of dataClipped) {
         if (csvOutput.includes(el)) {
             matchedAmount++;
         }
-    })
-    console.log('Matched ', matchedAmount);
-
-    let clippedSet = new Set(dataClipped);
-    let csvSet = new Set(csvOutput);
-
-    if (clippedSet.length < dataClipped.length || csvSet.length < csvOutput.length) {
-        console.log('Diplicates is result file!!!');
     }
+
+    console.log('Matched ', matchedAmount);
+    return matchedAmount;
 }
 
 function init() {
-    let dataClipped = fs.readFileSync('./clipped.txt', 'UTF-8').match(/\S+/g);
-    let csvOutput = fs.readFileSync('./test_new.csv', 'UTF-8').match(/\S+/g);
+    let dataClipped = fs.readFileSync(path.join(process.env.dataDir, 'clipped.txt'), 'UTF-8').match(/\S+/g);
+    let csvOutput = fs.readFileSync(path.join(process.env.dataDir, 'result.csv'), 'UTF-8').match(/\S+/g);
 
-    compareLength(dataClipped, csvOutput);
-    compareData(dataClipped, csvOutput);
+    return Promise.resolve({
+        clipped: dataClipped.length,
+        result: csvOutput.length,
+        matched: compareData(dataClipped, csvOutput)
+    });
 }
 
-init();
+module.exports = init;

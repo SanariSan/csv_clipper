@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ApiPath from './../ApiPath.js';
-import ApiRequest from './../scripts/ApiRequest.js';
+import ApiGetReq from './../scripts/ApiGetReq.js';
 import Preview from './Preview.js';
 
 const Previews = (props) => {
     const [previews, setPreviews] = useState(null);
-    const [mounted, setMounted] = useState(true);
+    const mounted = useRef(true);
+
+    useEffect(() => () => {
+        mounted.current = false;
+    }, []);
 
     useEffect(() => {
-        if (mounted) {
-            ApiRequest(ApiPath.previewsUrl)
-                .then(res => setTimeout(() => mounted ? setPreviews(res) : null, 400))
+        if (mounted.current) {
+            ApiGetReq(ApiPath.getPreviewsUrl)
+                .then(res => setTimeout(() => mounted.current ? setPreviews(res) : null, 400))
                 .catch(console.log)
         }
-
-        return () => {
-            setMounted(false);
-        }
-    }, [mounted]);
+    }, []);
 
     return (
         <div style={{

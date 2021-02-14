@@ -1,8 +1,10 @@
 const path = require('path');
 const apiUrl = '/api';
 const ApiPath = {
-    settingsUrl: path.join(apiUrl, '/settings'),
-    previewsUrl: path.join(apiUrl, '/preview')
+    runScriptUrl: path.join(apiUrl, '/runScript'),
+    setSettingsUrl: path.join(apiUrl, '/settings/set'),
+    getSettingsUrl: path.join(apiUrl, '/settings/get'),
+    getPreviewsUrl: path.join(apiUrl, '/preview')
 };
 
 export default ApiPath;

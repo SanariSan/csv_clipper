@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
 import CustomField from './CustomField';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const CustomForm = (props) => {
+    const { sort, clip, headers } = props.settings;
+
     return (
-        <div>
-            <Formik>
-                <Form>
-                    <CustomField fieldName="clip" showName="ShowIt" fieldType="radio" fieldValues={[true, false]} />
-                </Form>
-            </Formik>
-        </div>
+        <form>
+            <p>Сортировка</p>
+            <CustomField fieldName="sort_sortEnabled" showName="Включено" fieldType="radio" fieldValues={sort.sortEnabled} />
+            <CustomField fieldName="sort_sortOrder" showName="Порядок" fieldType="radio" fieldValues={sort.sortOrder} />
+            {/* <CustomField fieldName="sort" showName="Включено" fieldType="textarea" fieldValues={[sort.sortNamePattern]} /> */}
+
+
+            {/* <CustomField fieldName="clip" showName="ShowIt" fieldType="select" fieldValues={['asc', 'desc']} /> */}
+        </form>
     );
 }
 

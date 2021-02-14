@@ -1,32 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ApiPath from './../ApiPath.js';
-import ApiRequest from './../scripts/ApiRequest.js';
+import ApiGetReq from './../scripts/ApiGetReq.js';
 
 const path = require('path');
 
 const Preview = ({ previewName, previewId }) => {
     const [previewContent, setPreviewContent] = useState(null);
-    const [mounted, setMounted] = useState(true);
+    const mounted = useRef(true);
+
+    useEffect(() => () => {
+        mounted.current = false;
+    }, []);
 
     useEffect(() => {
-        if (mounted) {
-            ApiRequest(path.join(ApiPath.previewsUrl, previewId))
-                .then(res => setTimeout(() => mounted ? setPreviewContent(res) : null, 400))
+        if (mounted.current) {
+            ApiGetReq(path.join(ApiPath.getPreviewsUrl, previewId))
+                .then(res => setTimeout(() => mounted.current ? setPreviewContent(res) : null, 400))
                 .catch(console.log)
         }
-
-        return () => {
-            setMounted(false);
-        }
-    }, [mounted]);
+    }, [previewId]);
 
     return (
-        <div style={{
-            border: "2px solid black",
-            height: "max-content",
-            margin: "0px 10px",
-            padding: "10px"
-        }}>
+        <div key={previewId}
+            style={{
+                border: "2px solid black",
+                height: "max-content",
+                margin: "0px 10px",
+                padding: "10px"
+            }}>
             <b>{previewName}</b>
             <ul style={{
                 listStyleType: "none",

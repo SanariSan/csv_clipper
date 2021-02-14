@@ -1,12 +1,8 @@
-require('dotenv').config();
+// require('dotenv').config();
 
 const ExcelJS = require('exceljs');
 const fs = require('fs');
 const path = require('path');
-const dataDir = 'data';
-const filesDir = path.join(dataDir, 'files');
-const TEMPLATE_BREAK = '^\\S+_quantity';
-const QTY_TEMPLATE = '(?<=quantity_)\\d+';
 const uniOpts = {
     delimiter: '\t',
     headers: false,
@@ -34,9 +30,9 @@ function groupByTemplate(filesNamesArr) {
 
 function getSum(x) {
     return x.reduce((acc, curr) => {
-        let match = curr.match(new RegExp(QTY_TEMPLATE, 'g'));
-        if (match !== null) {
-            match = match[0];
+        let match = curr.match(new RegExp(global.csvControl.csvSettings.clip.sortNamePattern));
+        if (match !== null && match.length > 0) {
+            match = match[1];
         }
 
         return acc + +match;
@@ -68,10 +64,10 @@ function sortByQty(filesNamesArr) {
 }
 
 function getAllParts(filesNamesArr, fileName) {
-    let template = fileName.match(new RegExp(TEMPLATE_BREAK));
+    let template = fileName.match(new RegExp(global.csvControl.csvSettings.clip.clipNamePattern));
 
-    if (template !== null) {
-        template = template[0];
+    if (template !== null && template.length > 0) {
+        template = template[1];
     }
     else {
         throw Error('BAD TEMPLATE, NO MATCHES');
@@ -80,12 +76,12 @@ function getAllParts(filesNamesArr, fileName) {
     return filesNamesArr.filter(_ => _.match(new RegExp(template)));
 }
 
-async function init(mainDir) {
+async function init() {
 
     const unitedWorkbook = new ExcelJS.Workbook();
     const unitedSheet = unitedWorkbook.addWorksheet('Name');
 
-    const unsortedFilesNamesArr = fs.readdirSync(path.join(mainDir, filesDir), { withFileTypes: true })
+    const unsortedFilesNamesArr = fs.readdirSync(process.env.filesDir, { withFileTypes: true })
         .filter(_ => _.isFile())
         .map(_ => _.name);
 
@@ -102,7 +98,7 @@ async function init(mainDir) {
             console.log(filePart);
 
             const workbook = new ExcelJS.Workbook();
-            await workbook.csv.readFile(path.join(mainDir, filesDir, filePart), {
+            await workbook.csv.readFile(path.join(process.env.filesDir, filePart), {
                 parserOptions: uniOpts
             });
 
@@ -123,7 +119,7 @@ async function init(mainDir) {
         allParts.forEach(fileName => filesNamesSet.delete(fileName));
     }
 
-    await unitedWorkbook.csv.writeFile(path.join(mainDir, dataDir, 'result.csv'), {
+    await unitedWorkbook.csv.writeFile(path.join(process.env.dataDir, 'result.csv'), {
         formatterOptions: {
             ...uniOpts,
             headers: true

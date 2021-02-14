@@ -16,7 +16,12 @@ function applyEnvSettings({ mainDir }) {
     process.env.apiPreviewDir = path.join(process.env.apiDir, 'preview');
     process.env.apiPreviewSingleDir = path.join(process.env.apiPreviewDir, 'single');
     process.env.apiPreviewMultipleDir = path.join(process.env.apiPreviewDir, 'multiple');
+
     process.env.apiSettingsDir = path.join(process.env.apiDir, 'settings');
+    process.env.apiSettingsGetDir = path.join(process.env.apiSettingsDir, 'get');
+    process.env.apiSettingsSetDir = path.join(process.env.apiSettingsDir, 'set');
+
+    process.env.runScriptDir = path.join(process.env.apiDir, 'runScript');
 
     process.env.dataDir = path.join(process.env.mainDir, 'data');
     process.env.filesDir = path.join(process.env.dataDir, 'files');
